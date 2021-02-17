@@ -1,0 +1,251 @@
+.group-task-container {
+    margin-top: 100px;
+}
+
+.group-task-container .group-task-header {
+    margin: 0 0 40px 0;
+}
+
+/* .mb-4 {
+    width:100%;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+} */
+.cta-back-shoptrak{
+    padding: 4px 0 0 0;
+}
+
+.task-cards {
+    display:flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center; 
+}
+
+#MDBBtn{
+    cursor: pointer;
+}
+
+.btn btn-default Ripple-parent btn-dark-green{
+    color: white;
+}
+
+/* Filter */
+.task-cards .filter{
+    margin: 0 20px;
+}
+
+.assigned{
+    margin: 0 20px;
+    bottom: 10px;
+    min-width: 160px;
+    padding: 12px 16px;
+    z-index: 1;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 10px 0px rgba(0,0,0,0);   
+}
+
+.search-dropdown-row{
+    display: flex;
+    flex-flow: row; 
+    justify-content: space-between;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    margin: 0 0 0;
+    right: 1px;
+    min-width: 160px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block; 
+  }
+
+  .dropdown-content .dropdown-item:hover {
+      cursor: pointer;
+      background-color: #00C851;
+      color: white;
+  }
+  .custom-mod-hidden {
+    display: none
+}
+
+.dropdown-content-complete {
+    display: none;
+    position: absolute;
+    margin: 10px 0 0;
+    right: 2px;
+    min-width: 160px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  }
+
+  .comp{
+    margin: 0 20px;
+    bottom: 10px;
+    min-width: 160px;
+    padding: 12px 16px;
+    z-index: 1;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 10px 0px rgba(0,0,0,0);   
+}
+
+  .dropdown:hover .dropdown-content-complete {
+    display: block; 
+  }
+
+  .dropdown-content-complete .dropdown-item:hover {
+    cursor: pointer;
+    background-color: #00C851;
+    color: white;
+}
+
+.create-task-mod-display {
+    position: fixed;
+    background: rgba(27,31,35,.5);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+     z-index: 80;
+     padding-top: 2px;
+     height: 100%;
+     width: 100%;
+}
+
+.add-task-form{   
+    height: 70%;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    /* margin-top: 10%; */
+
+    width: 448px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 2%;
+    background-color: white;
+    border-color: #444d56;
+    box-shadow: 0 0 18px rgba(0,0,0,.4);
+}
+
+.x{
+    align-self: flex-end;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.new-task-form{
+    margin: 60px 0 0 0;
+}
+
+.create-task-form > input {
+    font-size: 16px;
+    margin: 14px 0;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 50px;
+    background-color: #efefef;
+    
+   
+}
+
+.create-task-form input:focus,
+.create-task-form input:active {
+  outline: none;
+}
+
+
+.dropdown-hidden{
+    display: none;
+}
+
+.dropdown-display{
+    display: block;
+}
+
+.dropdown-display .dropdown-text{
+    margin: 10px 0 0 0;
+    text-align: center
+}
+
+.dropdown-options{
+    display: flex;
+    margin-top: 10px;
+}
+
+/* Not taking in changes - check*/
+.dropdown-options button:focus
+.dropdown-options button:active{
+    outline: none;
+    color: purple;
+}
+
+
+.create-task-form .text-description {
+    width: 260px;
+    height: 120px;
+    border: 3px solid #cccccc;
+    padding: 5px;
+    font-family: Tahoma, sans-serif;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+}
+
+.cta-submit{
+    margin: 20px 0 0;
+    border-radius: 8px;
+    padding: 10px 100px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: #388e3c;
+    border: 1px solid #388e3c;
+    color: #ffffff;
+    cursor: pointer;   
+}
+
+.cta-new-task{
+    margin: 0 0 10px 0;
+}
+
+@media (min-width: 900px) and (max-width: 1440px){
+    .group-task-container{
+        width: 100%
+    }
+}
+
+
+/* Not taking in changes - check*/
+@media (min-width: 700px) and (max-width: 899){
+    .group-task-container{
+        width: 100%
+    }
+    .task-cards{
+        max-width: 100% ;
+    }
+
+    .search-dropdown-row{
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 300px;
+        align-items: center;
+    }
+    
+}
+

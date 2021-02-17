@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto');
+
+.groups-container {
+    margin-top: 60px;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.delete-text {
+    color: red;
+}
+
+.group-card{
+    height: 300px;
+    width: 300px;
+    margin-bottom: 40px;
+    margin-top: 2%;
+    display:flex;
+    flex-wrap:wrap;
+}
+
+
+.group-card-footer {
+    display: flex;
+    /* flex-flow: row nowrap; */
+    justify-content: space-between;
+    font-family: "Montserrat", "sans-serif";
+    background: #2A922D;
+    color: white;
+    flex-wrap:wrap;
+}
+
+.group-card-footer-button{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+.group-user-image img {
+    border-radius: 30px;
+    margin: 3%;
+}
+
+
+.create-button {
+    border-radius: 0.125rem;
+    height: 50px;
+    padding: 2px 18px;
+    background-color: #42922d;
+    color:white;
+    box-shadow: 0 2px 5px 0 rgba(46, 20, 20, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+@media (min-width: 900px) and (max-width: 1440px){
+
+    .group-user-image img{
+        border-radius: 30px;
+        margin: 3%;
+    }
+}
+
+@media (min-width: 767px) and (max-width: 899){
+
+    .group-card{
+        height: 300px;
+        width: 300px;
+        margin-top: 60px;
+        height: 80%;
+        
+    }
+}
+
+
+@media (min-width: 375px) and (max-width: 766px){
+
+    .group-card{
+        height: 300px;
+        width: 300px;
+        margin-top: 60px;
+        height: 80%;
+        
+    }
+}
+
