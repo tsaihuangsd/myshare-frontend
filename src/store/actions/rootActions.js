@@ -135,15 +135,7 @@ export const GET_SINGLE_TASK_START = "GET_SINGLE_TASK_START";
 export const GET_SINGLE_TASK_SUCCESS = "GET_SINGLE_TASK_SUCCESS";
 export const GET_SINGLE_TASK_FAILURE = "GET_SINGLE_TASK_FAILURE";
 
-
-
-// Defines URL for development and production/staging environments
-let backendURL;
-if(process.env.NODE_ENV === 'development'){
-  backendURL = `http://localhost:9000`
-} else {
-  backendURL = `https://labs12-fairshare.herokuapp.com`
-}
+let backendURL = process.env.REACT_APP_BACKEND_URL;
 
 /*
  * USER ACTIONS

@@ -18,7 +18,6 @@ import { getTaskComments, getCompleted, getGroupTasks, getUserName, getSingleTas
 //import { rootReducer } from "../store/reducers/rootReducer";
 
 class TaskCardDetail extends Component {
-  
   constructor(props){
     super(props);
     this.state={
@@ -57,17 +56,8 @@ class TaskCardDetail extends Component {
   }
 
   handleToggleComplete = (e) => {
-
-    let backendURL;
-    if(process.env.NODE_ENV === 'development'){
-    backendURL = `http://localhost:9000`
-    } else {
-    backendURL = `https://labs12-fairshare.herokuapp.com`
-    }
-
-    
+    let backendURL = process.env.REACT_APP_BACKEND_URL;
     let token = localStorage.getItem('jwt');
-    // console.log(token)
     let options = {
       headers: {
         Authorization: `Bearer ${token}`
@@ -76,7 +66,6 @@ class TaskCardDetail extends Component {
     let completedDate = (!this.state.taskCompleted
                         ? Date(Date.now()) : null);
     // console.log("completed on: ", completedDate);
-
     let changes = {
       "completed":!(!!+this.state.taskCompleted),
       "completedOn":completedDate
@@ -91,10 +80,7 @@ class TaskCardDetail extends Component {
   }
 
   render(){
-
-  return (
-      <>
-      
+    return (<>
       <MDBCard className="task-card-Detail" >
         <MDBCardBody className="task-card-body-Detail">
             <div className="task-card-left-Detail">
@@ -131,7 +117,7 @@ class TaskCardDetail extends Component {
         </MDBCardBody>
       </MDBCard>
       </>
-  );
+    );
   }
 };
 

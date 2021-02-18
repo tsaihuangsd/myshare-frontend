@@ -8,7 +8,6 @@ import axios from 'axios';
 import { MDBContainer, MDBCard, MDBCardBody} from "mdbreact";
 
 class GroupUser extends React.Component{
-
     componentWillMount(){
         if(this.props.user){
             // console.log('USER', this.props.user);
@@ -23,13 +22,7 @@ class GroupUser extends React.Component{
     }
 
     getLocalUser = id => {
-        let backendURL;
-        if(process.env.NODE_ENV === 'development'){
-        backendURL = `http://localhost:9000`
-        } else {
-        backendURL = `https://labs12-fairshare.herokuapp.com`
-        }
-        
+        let backendURL = process.env.REACT_APP_BACKEND_URL; 
         let token = localStorage.getItem('jwt');
         let options = {
             headers: {
@@ -45,12 +38,9 @@ class GroupUser extends React.Component{
         })
     }
 
-
-    render(){
-        
+    render(){        
         let userTotal = 0;
         let userNet = 0;
-
         if(this.props.groupHistory){
             for(let i = 0; i < this.props.groupHistory.length; i++){
                 if(this.props.groupHistory[i].groupID === Number(this.props.match.params.id)){
@@ -67,13 +57,11 @@ class GroupUser extends React.Component{
             <MDBContainer>
                 <MDBCard>
                     <MDBCardBody>
-
                         {this.state.targetUser !== null ? (
                     <div className = 'group-user-image'>
                     <h3>{this.state.targetUser.name}</h3>
                     <img src = {this.state.targetUser.profilePicture} alt = 'user profile'></img>
                         </div>) : <h3>No User</h3> }
-
                         <div className = 'group-user-stats'>
                             <div>Total: ${userTotal.toFixed(2)}</div>
                             <div>Net: ${userNet.toFixed(2)}</div>
@@ -84,7 +72,6 @@ class GroupUser extends React.Component{
             </div>
         )
     }
-
 }
 
 const mapStateToProps = state => {
@@ -100,7 +87,6 @@ const mapStateToProps = state => {
 }
 
 export default withRouter(connect(mapStateToProps, {
-    // actions
     getUserProfile,
     checkEmail,
 })(GroupUser));

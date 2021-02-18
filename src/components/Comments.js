@@ -24,12 +24,8 @@ class Comments extends Component {
     }
 
     componentWillMount(){
-        let backendURL;
-        if(process.env.NODE_ENV === 'development'){
-        backendURL = `http://localhost:9000`
-        } else {
-        backendURL = `https://labs12-fairshare.herokuapp.com`
-        }
+        
+        let backendURL = process.env.REACT_APP_BACKEND_URL;
         
         let token = localStorage.getItem('jwt');
         let options = {

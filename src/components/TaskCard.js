@@ -39,21 +39,13 @@ class TaskCard extends Component {
         this.setState({task: this.props.task
                       // taskComments: this.props.taskComments
                     });
-
-        let backendURL;
-        if(process.env.NODE_ENV === 'development'){
-        backendURL = `http://localhost:9000`
-        } else {
-        backendURL = `https://labs12-fairshare.herokuapp.com`
-        }
-        
+        let backendURL = process.env.REACT_APP_BACKEND_URL;        
         let token = localStorage.getItem('jwt');
         let options = {
             headers: {
             Authorization: `Bearer ${token}`
             }
         }
-
         axios.get(`${backendURL}/api/user/${this.props.task.completedBy}/name`, options).then(response => {
             // console.log('res', response.data.name);
             this.setState({
@@ -62,7 +54,6 @@ class TaskCard extends Component {
         })
     //   this.props.getUserName(this.props.task.completedBy);
     }  
-
 
   getComments = e => {
     e.preventDefault();
@@ -75,9 +66,7 @@ class TaskCard extends Component {
   }
 
   render(){
-
-  return (
-      //RECURRING
+    return (
       <MDBCard className="task-card" 
         onClick={this.handleClickTaskCard}>
         <MDBCardBody className="task-card-body">
@@ -108,7 +97,7 @@ class TaskCard extends Component {
             </div>
         </MDBCardBody>
       </MDBCard>
-  );
+    );
   }
 };
 
