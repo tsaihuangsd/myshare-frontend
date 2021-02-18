@@ -1,12 +1,6 @@
  import auth0 from 'auth0-js';
 
-let callbackURL;
-
-if(process.env.NODE_ENV === 'development'){
-    callbackURL = `http://localhost:3000/callback`
-} else if (process.NODE_ENV === 'production' || process.NODE_ENV !== 'development'){
-    callbackURL = `https://fairshare.netlify.com/callback`
-}
+let callbackURL=`${process.env.REACT_APP_FRONTEND_URL}/callback`;
 
 class Auth {
   constructor() {
