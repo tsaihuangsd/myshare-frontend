@@ -732,13 +732,8 @@ export const generateGroupInviteUrl = (userId, groupId) => {
     invitee: 'default@dummy.com'
   }
   const endpoint = axios.post(`${backendURL}/api/invite/create`, data, options);
-  let frontendURL;
+  let frontendURL=process.env.REACT_APP_FRONTEND_URL;
 
-  if(process.env.NODE_ENV === 'development'){
-    frontendURL = 'localhost:3000'
-  } else {
-    frontendURL = 'https://fairshare.netlify.com'
-  }
   return dispatch => {
     dispatch({type: GEN_GROUP_INVITE})
     endpoint.then(res => {

@@ -55,7 +55,7 @@ class GroupsPage extends Component {
 
   componentDidMount() {
     console.log("currentUser: ", this.props.currentUser);
-    document.title = `FairShare - Groups`;
+    document.title = `MyShare - Groups`;
     if (!this.props.userGroups && this.props.currentUser) {
       this.props.getUserGroups(this.props.currentUser.id);
     }

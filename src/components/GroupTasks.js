@@ -56,7 +56,7 @@ class GroupTasks extends Component {
     }
  
     componentWillMount(){
-        document.title = `FairShare - Task`;
+        document.title = `MyShare - Task`;
         // console.log("this.props.match.params.id: ",this.props.match.params.id);      
         this.props.getGroupTasks(this.props.match.params.id);        
         this.props.getGroupUserObjs(this.props.match.params.id);

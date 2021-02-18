@@ -8,13 +8,7 @@ import Auth0Lock from 'auth0-lock';
 import './Styles/Invite.css';
 
 
-let frontendURL;
-if(process.env.NODE_ENV === 'development'){
-    frontendURL = 'http://localhost:3000';
-} else {
-    frontendURL = `https://fairshare.netlify.com`
-}
-
+let frontendURL=process.env.REACT_APP_FRONTEND_URL;
 var lockOptions = {
     auth: {
         redirectUrl: `${frontendURL}/callback`,

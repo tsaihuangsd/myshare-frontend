@@ -63,7 +63,7 @@ class TaskDetail extends Component {
     }
 
     componentWilMount(){
-      document.title = `FairShare - Task`;           
+      document.title = `MyShare - Task`;           
       this.props.getGroupUserObjs(this.props.match.params.groupId);
       this.props.getSingleTask(this.props.match.params.taskId);
       this.setState({task:this.props.task,

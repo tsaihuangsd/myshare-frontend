@@ -7,12 +7,7 @@ import macMockup from '../images/mac-mockup.png';
 import {MDBIcon, MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCardHeader, MDBCardText, MDBCardFooter,MDBCol,MDBRow} from 'mdbreact';
 
 
-let frontendURL;
-if(process.env.NODE_ENV === 'development'){
-    frontendURL = 'http://localhost:3000';
-} else {
-    frontendURL = `https://fairshare.netlify.com`
-}
+let frontendURL=process.env.REACT_APP_FRONTEND_URL;
 
 var lockOptions = {
     auth: {
@@ -40,7 +35,7 @@ var lock = new Auth0Lock(
 
 class Home extends React.Component{
         componentDidMount() {
-                document.title = `FairShare`;
+                document.title = `MyShare`;
         }
 
         
@@ -53,7 +48,7 @@ class Home extends React.Component{
         render(){
         return(
 <div className = 'home-container'>
-<h1 className="h1-responsive text-center my-5">FAIRSHARE</h1>
+<h1 className="h1-responsive text-center my-5">MYSHARE</h1>
         <h3 className="grey-text w-responsive text-center mx-auto mb-5">
         Shared living, made simple.</h3>
     <section className="home-banner-overlay">
@@ -69,7 +64,7 @@ class Home extends React.Component{
                  <MDBRow className="home-content-top">
                     <MDBCol  md="8" size="10">
                     <h2 className="font-weight-bold caption">Organize like a pro</h2>
-                    <p className="">FairShare keeps your mind at ease with all task in one place. For people who needs to unclutter their mind and manage their time better. </p>
+                    <p className="">MyShare keeps your mind at ease with all task in one place. For people who needs to unclutter their mind and manage their time better. </p>
                     <button class="createAccount" onClick={this.signIn}>Create a free account </button>
                     </MDBCol>
                 </MDBRow>
@@ -90,7 +85,7 @@ class Home extends React.Component{
                 {/* <img src = {groceryBag} alt = 'bag of groceries'></img> */}
 
                 {/* <div className = 'home-banner-overlay'>
-                <h1>FAIRSHARE</h1>
+                <h1>MYSHARE</h1>
 
                 <h2>Shared living, made simple.</h2>
                 </div> */}
@@ -107,7 +102,7 @@ class Home extends React.Component{
                         </div>
                         <div className = 'about-text'>
                         <h3>Roommates? <br></br>Handled.</h3>
-                            <p>Shared living means shared expenses, but keeping a tally can be a hassle. Keep track of everyone's contributions with FairShare.</p>
+                            <p>Shared living means shared expenses, but keeping a tally can be a hassle. Keep track of everyone's contributions with MyShare.</p>
                         </div>
                     </div>
 
@@ -219,7 +214,7 @@ class Home extends React.Component{
                 </main>
 
                 <footer>
-                    Created at Lambda Labs - © FairShare 2019
+                    Created by Tsai Huang - © MyShare 2020
                 </footer>
             </div>
         )

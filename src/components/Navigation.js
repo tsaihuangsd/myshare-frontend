@@ -10,12 +10,7 @@ import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNav
     MDBDropdownToggle, MDBDropdownMenu,
     MDBBtn } from "mdbreact";
 
-let frontendURL;
-if(process.env.NODE_ENV === 'development'){
-    frontendURL = 'http://localhost:3000';
-} else {
-    frontendURL = `https://fairshare.netlify.com`
-}
+let frontendURL=process.env.REACT_APP_FRONTEND_URL;
 
 var lockOptions = {
     auth: {
@@ -85,7 +80,7 @@ class Navigation extends React.Component{
                 <MDBNavbar style={{backgroundColor: "#2A922D"}} dark expand="md">
 
                     <MDBNavbarBrand>
-                        <strong className="white-text">FairShare</strong>
+                        <strong className="white-text">MyShare</strong>
                     </MDBNavbarBrand>
 
                     <MDBNavbarToggler onClick={this.toggleCollapse} />

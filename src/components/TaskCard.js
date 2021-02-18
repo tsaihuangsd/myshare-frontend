@@ -35,7 +35,7 @@ class TaskCard extends Component {
     };
   }
   componentWillMount(){
-        document.title = `FairShare - Task`; 
+        document.title = `MyShare - Task`; 
         this.setState({task: this.props.task
                       // taskComments: this.props.taskComments
                     });
