@@ -18,6 +18,8 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 
+import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
+
 import * as serviceWorker from "./serviceWorker";
 
 import rootReducer from "./store/reducers";
@@ -39,11 +41,13 @@ const store = createStore(rootReducer, enhancer);
 const rootElement = document.getElementById("root");
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
+  <Router>
+    <Auth0ProviderWithHistory>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Auth0ProviderWithHistory>
+  </Router>,
   rootElement
 );
 

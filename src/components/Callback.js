@@ -16,6 +16,8 @@ class Callback extends Component {
 
     if(localStorage.getItem('jwt')){
       window.location.href = '/groups'
+    }else{
+      console.log("no jwt received")
     }
   }
 
