@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect}from "react";
 import {
   getCurrentUser,
   checkEmail,
@@ -29,7 +29,28 @@ import {
   MDBAlert
 } from "mdbreact";
 import "./Styles/UserProfile.css";
+import { useAuth0 } from "@auth0/auth0-react";   
 
+  // const UserProfile = (props)=>{
+  //   const [generalToggle, setGeneralToggle]=  setState(true)
+  //   const [notifToggle, setNotifToggle] = useState(false)
+  //   const [subToggle, setSubToggle]= useState(false)
+  //   const [username, setUsername]= useState("")
+  //   const [profilePic, setProfilePic] = useState("")
+  //   const [modal14, setModel14] = useState(false)
+  //   const [modal16, setModal16] = useState(false)
+  //   const [hasSaved, setHasSaved] = useState(false)
+  //   const [hasPSaved, setHasPSaved] = useState(false)
+  //   const [deleteInputText, setdeleteInputText] = useState("")
+  //   const {user,isAuthenticated} = useAuth0()
+  //   useEffect = (()=>{
+  //     if (user && isAuthenticated){
+  //       document.title =`${user.name}'s Profile`
+  //     } else{
+  //       localStaorage.removeItem("name")
+  //     }    
+  //   },[user])
+  // }
 
 class UserProfile extends React.Component {
   state = {
@@ -42,29 +63,23 @@ class UserProfile extends React.Component {
     modal16: false,
     hasSaved: false,
     hasPSaved: false,
-    delete: "",
+    deleteInputText: "",
   };
   componentWillMount() {
-    // this.props.getCurrentUser();
     if (!this.props.currentUser && localStorage.getItem("isLoggedIn")) {
       // find a user if none in state
-      // console.log('profile mount');
       this.props.checkEmail();
     }
-
     if (this.props.currentUser) {
       this.setState({ username: this.props.currentUser.name });
     } else {
         this.setState({username: localStorage.getItem("name")})
     }
   }
-
   componentDidMount(){
         if(!this.props.currentUser){
             this.props.checkEmail();
-        }
-
-        if (this.props.currentUser) {
+        } else {
           document.title = `${this.props.currentUser.name}'s Profile`;
           this.setState({ username: this.props.currentUser.name });
         }
@@ -143,21 +158,14 @@ class UserProfile extends React.Component {
     event.preventDefault();
     let userID = localStorage.getItem("userId")
     let groupID = localStorage.getItem("groupId")
-    console.log(userID,groupID)
     if (localStorage.getItem("userId")) {
-        this.props.removeGroupMember(userID,groupID);
+      this.props.removeGroupMember(userID,groupID);
       this.props.history.push("/");
     }
 }
 
-
-
-  
-  
   render() {
-    let name,
-      email,
-      profilePicture = "";
+    let name,email,profilePicture = "";
     let subscriptionType = 1;
 
     if (this.props.currentUser) {
@@ -168,84 +176,74 @@ class UserProfile extends React.Component {
     }
 
     const user = localStorage.getItem("userId");
-   return (
-
+    return (
       <div className="user-profile-container">
-        {
-          user === null ? <div className="user-notlogged">
-            <h1>You must be logged in to view this page</h1>
-          </div> : <div>
-                <div className="user-profile-header">
-                  <MDBBtn
-                      className={
-                        this.state.generalToggle
-                            ? "btn-outline-dark-green"
-                            : "btn-dark-green"
-                      }
-                      onClick={() => {
-                        this.generalToggle();
-                      }}
-                  >
-                    General
-                  </MDBBtn>
-                  <MDBBtn
-                      className={
-                        this.state.subToggle ? "btn-outline-dark-green" : "btn-dark-green"
-                      }
-                      onClick={() => {
-                        this.subToggle();
-                      }}
-                  >
-                    Subscription
-                  </MDBBtn>
-                </div>
-                <div className="user-profile-col">
-                  <div className="user-profile-left">
-                    <div className="user-profile-pic">
-                      <MDBCol>
-                        <MDBCard style={{ width: "22rem" }}>
-                          <MDBCardImage
-                              className="img-fluid"
-                              src={profilePicture}
-                              waves
-                          />
-                          <MDBBtn className="btn-dark-green" onClick={this.toggle(14)}>
-                            <MDBIcon className="mr-1" icon="edit" />Change
-                          </MDBBtn>
-                          <MDBCardBody>
-                            <MDBCardTitle>{name} <MDBBadge color="primary">{subscriptionType === 1 ? "FREE" : "PREMIUM"}</MDBBadge></MDBCardTitle>
-                            <MDBCardText>{email}</MDBCardText>
-                            {/*<div className='user-profile-header'>*/}
-                            {/*<MDBBtn color="danger" onClick={this.toggle(14)}>*/}
-                            {/*Remove Account*/}
-                            {/*</MDBBtn>*/}
-                            {/*</div>*/}
-                          </MDBCardBody>
-                        </MDBCard>
-                      </MDBCol>
-                    </div>
-                    {/*<div classname="user-profile-info">*/}
-
-                    {/*</div>*/}
+        { user === null 
+        ? <div className="user-notlogged">
+              <h1>You must be logged in to view this page</h1>
+          </div> 
+        : <div>
+            <div className="user-profile-header">
+                <MDBBtn
+                    className={
+                      this.state.generalToggle
+                          ? "btn-outline-dark-green"
+                          : "btn-dark-green"
+                    }
+                    onClick={() => {
+                      this.generalToggle();
+                    }} >General
+                </MDBBtn>
+                <MDBBtn
+                    className={
+                      this.state.subToggle ? "btn-outline-dark-green" : "btn-dark-green"
+                    }
+                    onClick={() => {
+                      this.subToggle();
+                    }} >Subscription
+                </MDBBtn>
+              </div>
+              <div className="user-profile-col">
+                <div className="user-profile-left">
+                  <div className="user-profile-pic">
+                    <MDBCol>
+                      <MDBCard style={{ width: "22rem" }}>
+                        <MDBCardImage
+                            className="img-fluid"
+                            src={profilePicture}
+                            waves />
+                        <MDBBtn className="btn-dark-green" onClick={this.toggle(14)}>
+                          <MDBIcon className="mr-1" icon="edit" />Change
+                        </MDBBtn>
+                        <MDBCardBody>
+                          <MDBCardTitle>{name} <MDBBadge color="primary">{subscriptionType === 1 ? "FREE" : "PREMIUM"}</MDBBadge></MDBCardTitle>
+                          <MDBCardText>{email}</MDBCardText>
+                          {/*<div className='user-profile-header'>*/}
+                          {/*<MDBBtn color="danger" onClick={this.toggle(14)}>*/}
+                          {/*Remove Account*/}
+                          {/*</MDBBtn>*/}
+                          {/*</div>*/}
+                        </MDBCardBody>
+                      </MDBCard>
+                    </MDBCol>
                   </div>
-
+                  {/*<div classname="user-profile-info">*/}
+                  {/*</div>*/}
+                </div>
                   <div className="user-profile-right">
-                    {this.state.generalToggle ? (
-                        <div className="user-profile-settings">
+                    { this.state.generalToggle 
+                    ? (<div className="user-profile-settings">
                           <MDBInput
                               label="Username"
                               name="username"
                               onChange={e => this.handleInput(e)}
                               valueDefault={this.state.username}
-                              icon="user"
-                          />
+                              icon="user" />
                           <MDBInput
                               label="Email"
                               disabled={true}
                               value={email}
-                              icon="envelope"
-                          />
-
+                              icon="envelope" />
                           <div className="user-profile-settings-header">
                             <MDBBtn color="danger" onClick={this.handleDeleteAccount}>
                               Remove Account
@@ -258,29 +256,26 @@ class UserProfile extends React.Component {
                                 className={
                                   this.state.listToggle
                                       ? "btn-outline-dark-green"
-                                      : "btn-dark-green"
-                                }
+                                      : "btn-dark-green"}
                                 onClick={() => {
                                   this.saveCurrentUsername();
-                                }}
-                            >
+                                }}>
                               Save
                             </MDBBtn>
                           </div>
-                          {
-                            this.state.hasSaved ? <MDBAlert color="success">
+                          {this.state.hasSaved ? <MDBAlert color="success">
                               Username saved!
                             </MDBAlert> : null
                           }
-                          {
-                            this.state.hasPSaved ? <MDBAlert color="success">
+                          {this.state.hasPSaved 
+                          ? <MDBAlert color="success">
                               Profile picture Saved!
-                            </MDBAlert> : null
-                          }
+                            </MDBAlert>
+                          : null}
                         </div>
-                    ) : null}
-                    {this.state.subToggle ? (
-                        <div>
+                      ) : null}
+                    { this.state.subToggle 
+                    ? (<div>
                           <MDBContainer >
                             <MDBCardGroup deck className="user-profile-subs-container">
                               <MDBCard
@@ -289,9 +284,10 @@ class UserProfile extends React.Component {
                                     height: "245px",
                                     marginTop: "1rem"
                                   }}
-                                  className="text-center"
-                              >
-                                <MDBCardHeader color="success-color">Free</MDBCardHeader>
+                                  className="text-center">
+                                <MDBCardHeader color="success-color">
+                                  Free
+                                </MDBCardHeader>
                                 <MDBCardBody>
                                   <MDBCardTitle>
                                     <MDBBadge color="default">$0.00</MDBBadge>
@@ -302,21 +298,15 @@ class UserProfile extends React.Component {
                                   <MDBBtn
                                       className="btn btn-dark-green"
                                       disabled={subscriptionType === 1 ? true : false}
-                                      size="lg"
-                                  >
+                                      size="lg">
                                     {subscriptionType === 1 ? "Subscribed" : "Subscribe"}
                                   </MDBBtn>
                                 </MDBCardBody>
                               </MDBCard>
-
-                              <MDBCard
-                                  style={{
-                                    width: "22rem",
-                                    height: "245px",
-                                    marginTop: "1rem"
-                                  }}
-                                  className="text-center"
-                              >
+                              <MDBCard  style={{ width: "22rem",
+                                                height: "245px",
+                                                marginTop: "1rem"}}
+                                        className="text-center">
                                 <MDBCardHeader color="success-color">
                                   Yearly Premium Subscription
                                 </MDBCardHeader>
@@ -330,8 +320,7 @@ class UserProfile extends React.Component {
                                   <MDBBtn
                                       className="btn btn-dark-green"
                                       disabled={true}
-                                      size="lg"
-                                  >
+                                      size="lg">
                                     coming soon...
                                   </MDBBtn>
                                 </MDBCardBody>
@@ -342,65 +331,52 @@ class UserProfile extends React.Component {
                     ) : null}
                   </div>
               </div>
-            </div>
-        }
-
-
+            </div>}
         <MDBContainer>
-        <div className= {
-                this.state.modal14=== false
-                    ? 'custom-mod-hidden'
-                    : 'profile-pic-mod-display'}>
-                <form className={'create-task-form'} onSubmit={this.saveProfilePicture}>
+          <div className= { this.state.modal14=== false
+                          ? 'custom-mod-hidden'
+                          : 'profile-pic-mod-display'}>
+              <form className={'create-task-form'} 
+                    onSubmit={this.saveProfilePicture}>
                 <span className="x" onClick={this.toggle(14)}>X</span>
                 <h3>Update Profile Picture</h3>
-              <MDBInput 
-                label="Picture URL"
-                name="profilePic"
-                onChange={this.handleInput}
-                defaultValue={this.state.profilePic}
-              />
-              <MDBBtn color="primary" onClick={this.saveProfilePicture}>
-                  Save
-              </MDBBtn>
-                 </form>
-              
+                <MDBInput 
+                  label="Picture URL"
+                  name="profilePic"
+                  onChange={this.handleInput}
+                  defaultValue={this.state.profilePic} />
+                <MDBBtn color="primary" onClick={this.saveProfilePicture}>
+                    Save
+                </MDBBtn>
+              </form>              
           </div>
-
-            <MDBModal isOpen={this.state.modal16} toggle={this.toggle(16)} centered>
-                <button onClick={this.handleDeleteAccount}>Remove Account</button>
-                <MDBModalBody>
-                    <h6>Type the full name of your username to completely remove it.</h6>
-                    <MDBInput label="Account Name" name={"delete"} onChange={this.handleInput} defaultValue={this.state.delete}/>
-                    <small className="delete-text" >{this.state.username}</small>
-                </MDBModalBody>
-                <MDBModalFooter>
-                    <MDBBtn color="secondary" onClick={this.toggle(16)}>Close</MDBBtn>
-                    <MDBBtn color="primary" onClick={this.handleDeleteAccount} disabled={this.state.username !== this.state.delete }>Delete</MDBBtn>
-                </MDBModalFooter>
-            </MDBModal>
+          <MDBModal isOpen={this.state.modal16} toggle={this.toggle(16)} centered>
+              <button onClick={this.handleDeleteAccount}>Remove Account</button>
+              <MDBModalBody>
+                  <h6>Type the full name of your username to completely remove it.</h6>
+                  <MDBInput label="Account Name" name={"delete"} onChange={this.handleInput} defaultValue={this.state.deleteInputText}/>
+                  <small className="delete-text" >{this.state.username}</small>
+              </MDBModalBody>
+              <MDBModalFooter>
+                  <MDBBtn color="secondary" onClick={this.toggle(16)}>Close</MDBBtn>
+                  <MDBBtn color="primary" onClick={this.handleDeleteAccount} disabled={this.state.username !== this.state.deleteInputText }>Delete</MDBBtn>
+              </MDBModalFooter>
+          </MDBModal>
         </MDBContainer>
-
-       </div>
-   )
-
-
+    </div>)
   }
-  
 }
 
 const mapStateToProps = state => {
   state = state.rootReducer; // pull values from state root reducer
   return {
-    //state items
     currentUser: state.currentUser,
-
   };
 };
 
 export default connect(
   mapStateToProps,
-  {
+  { //mapDispatchToProps
     getCurrentUser,
     checkEmail,
     saveUsername,

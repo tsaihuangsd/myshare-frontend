@@ -77,8 +77,7 @@ import {
   GET_COMPLETED_SUCCESS,
   GET_COMPLETED_FAILURE,
   GET_GROUP_USER_OBJECTS,
-  SAVE_GROUP_USER_OBJECTS
-
+  SAVE_GROUP_USER_OBJECTS 
 } from "../actions/";
 
 const initialState = {
@@ -94,26 +93,19 @@ const initialState = {
   groupHistoryList: null,
   groupUsers: null,
   groupUserProfiles: null,
-
   invites: null,
-
   currentGroup: null,
   groups: null,
   items: null,
   emailChecked: false,
-
   groupTotal: null,
-
   userTotal: null,
   markedItems: null,
   needsRefresh: false,
   itemPurchasedText: null,
-
   inviteInfo: null,
-
   errorMessage: null,
   groupMembers: null,
-
   currentGroupTasks: {data:[]},
   taskComments: [],
   tempUserName: null,
@@ -123,10 +115,7 @@ const initialState = {
   groupUserObjs: []
 };
 
-
 export const rootReducer = (state = initialState, action) => {
-
-
   switch (action.type) {
     case GET_USER_NAME_START:
       return {...state,

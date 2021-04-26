@@ -149,25 +149,22 @@ let backendURL = process.env.REACT_APP_BACKEND_URL;
  * case is addUserToState in order to populate state completely
  * @returns {Function}
  */
-export const checkEmail = () => {
-  console.log("In checkEmail")
+export const checkEmail = (user) => {
   let token = localStorage.getItem('jwt');
-  // console.log('token', token);
   let options = {
     headers: {
       Authorization: `Bearer ${token}`, // we can extract the email from the token instead of explicitly sending it in req.body
+    },
+    body: {
+      user: user
     }
   }
   const fetchUserId = axios.get(`${backendURL}/api/user/check/getid`, options);
-
   return (dispatch) => {
     dispatch({type: CHECKING_EMAIL});
-    // console.log("after CHECKING_EMAIL")
     fetchUserId.then(res => {
-      console.log("fetch Id successful")
       dispatch({type: EMAIL_CHECKED, payload: res.data.profile});
       localStorage.setItem('userId', res.data.id);
-      // console.log("after fecthUserId")
     }).catch(err => {
       localStorage.removeItem('name');
       localStorage.removeItem('email');
@@ -176,8 +173,6 @@ export const checkEmail = () => {
       localStorage.removeItem('userId');
       localStorage.removeItem('isLoggedIn');
       localStorage.removeItem('lsid');
-      // localStorage.removeItem('userId');
-      console.log('Error check email:', err)
       dispatch({type: ERROR, payload: "Internal error parsing user. Try refreshing the page."})
     })
   }

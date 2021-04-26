@@ -11,30 +11,24 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Navigation = (props) =>{
     //declare local states
-    const [collapseID, setCollapseID]= useState("")
-    const [activeTabClassname, setActiveTabClassname] = useState("home")
     const [isOpen, setIsOpen] = useState(false)
 
+    const { loginWithRedirect , logout, isAuthenticated } = useAuth0();
     const history = useHistory();
     const frontendURL = process.env.REACT_APP_FRONTEND_URL;
-    const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
     const pathname = window.location.href;
-    console.log("windows.location.href: ", window.location.href)
 
      // Toggles dropdown menus for MDB
     const toggleCollapse = () => {
-        setIsOpen = !isOpen
-        // this.setState({ isOpen: !this.state.isOpen });
+        setIsOpen(!isOpen)
     }
 
-    const signOut = () => { // logs out the current user and redirects to the homepage
-        // e.preventDefault();
-        logout({returnTo: window.location.origin,})
+    const signOut = async () => { // logs out the current user and redirects to the homepage
+        await logout({returnTo: frontendURL})
     };
 
-    const signUp = () => {
-        // e.preventDefault();
-        loginWithRedirect({screen_hint: "signup",})
+    const signUp = async () => {
+        await loginWithRedirect({screen_hint: 'signup',redirect_uri:`${frontendURL}/callback`})
     }
 
     return (
@@ -50,8 +44,8 @@ const Navigation = (props) =>{
                             <MDBNavItem active={pathname === "/groups" ? true : false} >
                                 <MDBNavLink to="/groups">Groups</MDBNavLink>
                             </MDBNavItem>
-                            <MDBNavItem active={pathname === "/profile" ? true : false} className="nav-mobile" >
-                                <MDBNavLink to="/profile">My Account</MDBNavLink>
+                            <MDBNavItem active={pathname === "/user-profile" ? true : false} className="nav-mobile" >
+                                <MDBNavLink to="/user-profile">My Account</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem className="nav-mobile">
                                 <MDBNavLink to="#" onClick={()=>signOut()} >Log Out</MDBNavLink>

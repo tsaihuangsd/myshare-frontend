@@ -18,7 +18,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 
-import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
+import Auth0ProviderWithContext from "./auth/Auth0ProviderWithContext";
 
 import * as serviceWorker from "./serviceWorker";
 
@@ -42,11 +42,11 @@ const rootElement = document.getElementById("root");
 
 ReactDOM.render(
   <Router>
-    <Auth0ProviderWithHistory>
+    <Auth0ProviderWithContext>
       <Provider store={store}>
         <App />
       </Provider>
-    </Auth0ProviderWithHistory>
+    </Auth0ProviderWithContext>
   </Router>,
   rootElement
 );

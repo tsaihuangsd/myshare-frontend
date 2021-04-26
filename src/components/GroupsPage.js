@@ -54,23 +54,22 @@ class GroupsPage extends Component {
   }
 
   componentDidMount() {
-    console.log("currentUser: ", this.props.currentUser);
     document.title = `MyShare - Groups`;
     if (!this.props.userGroups && this.props.currentUser) {
       this.props.getUserGroups(this.props.currentUser.id);
     }
 
     // invitation handling on groups redirect
-    if (
-      sessionStorage.getItem("pendingInvite") &&
-      localStorage.getItem("isLoggedIn")
-    ) {
-      let inviteCode = sessionStorage.getItem("pendingInvite");
-      console.log("pending invite", inviteCode);
-      this.props.acceptInvite(inviteCode); // tell the server to add the now logged-in user to the invite group
+    // if (
+    //   sessionStorage.getItem("pendingInvite") &&
+    //   localStorage.getItem("isLoggedIn")
+    // ) {
+    //   let inviteCode = sessionStorage.getItem("pendingInvite");
+    //   console.log("pending invite", inviteCode);
+    //   this.props.acceptInvite(inviteCode); // tell the server to add the now logged-in user to the invite group
 
-      sessionStorage.removeItem("pendingInvite");
-    }
+    //   sessionStorage.removeItem("pendingInvite");
+    // }
   }
 
   componentWillReceiveProps = newProps => {
@@ -79,14 +78,9 @@ class GroupsPage extends Component {
       !this.props.userGroups &&
       this.props.errorMessage === null
     ) {
-      console.log("In newProps.currentUser: ", this.props.currentUser);
       this.props.getUserGroups(newProps.currentUser.id);
     }
   };
-
-  componentDidUpdate(previousProps){
-    
-  }
 
   toggle = nr => () => {
     let modalNumber = "modal" + nr;
